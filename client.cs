@@ -5,6 +5,7 @@ using CitizenFX.Core;
 using CitizenFX.Core.Native;
 
 public class EasyRagdoll : BaseScript {
+    Debug.WriteLine("EasyRagdoll Load")
     public EasyRagdoll() {
         Tick += OnTick;
         EventHandlers["ragdoll:toggle"] += new Action(ToggleRagdoll);
@@ -13,10 +14,12 @@ public class EasyRagdoll : BaseScript {
     private void OnTick() {
         if (Game.IsControlPressed(1, Control.Jump)) {
             TriggerServerEvent("ragdoll:toggle");
+            Debug.WriteLine("Ragdoll event trig from client via tick")
         }
     }
 
     private void ToggleRagdoll() {
         API.SetPedToRagdoll(Game.PlayerPedId, 1000, 1000, 0, true, true, false);
+        Debug.WriteLine("Ragdoll event trig from client via toggleRagdoll")
     }
 }
