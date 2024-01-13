@@ -5,8 +5,8 @@ using CitizenFX.Core;
 using CitizenFX.Core.Native;
 
 public class EasyRagdoll : BaseScript {
-    Debug.WriteLine("EasyRagdoll Load")
     public EasyRagdoll() {
+        Debug.WriteLine("EasyRagdoll Load")
         Tick += OnTick;
         EventHandlers["ragdoll:toggle"] += new Action(ToggleRagdoll);
     }
