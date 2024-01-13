@@ -6,5 +6,6 @@ using CitizenFX.Core.Native;
 using CitizenFX.Core.UI;
 
 public class EasyRagdoll : BaseScript {
-
+    private bool ragdolled = false;
+    private Control ragdollKey = Control.MultiplayerInfo;
 }
