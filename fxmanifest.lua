@@ -6,5 +6,5 @@ description 'Coastal State Roleplay'
 version '1.0.0'
 
 client_scripts {
-    'client.lua',
+    'client.cs',
 }
