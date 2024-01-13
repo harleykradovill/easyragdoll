@@ -3,24 +3,32 @@
 
 using CitizenFX.Core;
 using CitizenFX.Core.Native;
-using CitizenFX.Core.UI;
 
 public class EasyRagdoll : BaseScript {
-    private bool ragdolled = false;
-    private Control ragdollKey = Control.MultiplayerInfo;
+    private bool ragdoll = false;
+    private bool shownHelp = false;
 
-    public Ragdoll() {
-    Tick += OnTick;
-    RegisterCommand("toggleragdoll", new Action(ToggleRagdoll), false);
-
-    if (API.RegisterKeyMapping("toggleRagdoll", "Toggle Ragdoll", "keyboard", "Z")) {
-        Debug.WriteLine("Keybind registered");
-    } else {
-        Debug.WriteLine("Keybind failed to register");
+    public EasyRagdoll() {
+        EventHandlers["esx=:getSharedObject"] += new Action<dynamic>(esxObject => ESX = esxObject);
+        Tick += OnTick;
     }
 
+    private async void OnTick() {
+        while ESX == null) {
+            TriggerEvent("esx:getSharedObject", new object[] { new Action<dynamic>(esxObject => ESX = esxObject) });
+            await Delay(0);
+        }
+        while (true) {
+            await Delay(0);
 
+            if (Game.IsControlJustPressed(2, Control.Context) && !Game.IsPedInAnyVehicle(Game.PlayerPedId, false)) {
+                ragdoll = !ragdoll;
+                if (!ragdoll)
+                    shownHelp = false;
+            }
 
+            if (Config.stunShouldRagdoll && API.IsPedBeingStunned(Game.PlayerPedId))
+                    ragdoll = true;
+        }
     }
-
 }
